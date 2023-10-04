@@ -9,12 +9,14 @@ namespace console_chess.Chess
         public Board.Board Board { get; private set; }
         private int Turn { get; set; }
         private Board.Color CurrentPlayer { get; set; }
+        public bool Finished { get; private set; }
         
         public ChessMatch()
         {
             this.Board = new Board.Board(8, 8);
             this.Turn = 1;
             this.CurrentPlayer = console_chess.Board.Color.White;
+            this.Finished = false;
             InsertPieces();
         }
 
