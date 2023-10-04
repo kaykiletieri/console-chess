@@ -40,6 +40,19 @@
             piece.Position = position;
         }
 
+        public Piece RemovePiece(Position position)
+        {
+            if(this.Piece(position) == null)
+            {
+                return null;
+            }
+
+            Piece piece = this.Piece(position);
+            piece.Position = null;
+            this.Pieces[position.Row, position.Column] = null;
+            return piece;
+        }
+
         public bool ValidPosition(Position position)
         {
             if (position.Row < 0 || position.Row >= this.Rows || position.Column < 0 || position.Column >= this.Columns)

@@ -2,7 +2,7 @@
 {
     public class Piece
     {
-        public Position? Position { get; set; }
+        public Position Position { get; set; }
         public Color Color { get; set; }
         public int MovementQuantity { get; set; }
         public Board Board { get; set; }
@@ -13,6 +13,11 @@
             this.Color = color;
             this.Board = board;
             this.MovementQuantity = 0;
+        }
+
+        public void IncrementMovementQuantity()
+        {
+            this.MovementQuantity++;
         }
     }
 }
