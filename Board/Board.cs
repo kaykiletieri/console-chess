@@ -17,5 +17,11 @@
         {
             return this.Pieces[row, column];
         }
+
+        public void InsertPiece(Piece piece, Position position)
+        {
+            this.Pieces[position.Row, position.Column] = piece;
+            piece.Position = position;
+        }
     }
 }
