@@ -1,6 +1,6 @@
 ﻿namespace console_chess.Board
 {
-    public class Piece
+    public abstract class Piece
     {
         public Position Position { get; set; }
         public Color Color { get; set; }
@@ -19,5 +19,7 @@
         {
             this.MovementQuantity++;
         }
+
+        public abstract bool[,] PossibleMovements();
     }
 }

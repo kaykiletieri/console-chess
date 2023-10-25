@@ -12,5 +12,10 @@ namespace console_chess.Chess
         {
             return "B";
         }
+
+        public override bool[,] PossibleMovements()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

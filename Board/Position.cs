@@ -10,5 +10,11 @@
             this.Row = row;
             this.Column = column;
         }
+
+        public void SetValues(int row, int column)
+        {
+            this.Row = row;
+            this.Column = column;
+        }
     }
 }
