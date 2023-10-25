@@ -7,8 +7,8 @@ namespace console_chess.Chess
     public class ChessMatch
     {
         public Board.Board Board { get; private set; }
-        private int Turn { get; set; }
-        private Board.Color CurrentPlayer { get; set; }
+        public int Turn { get; private set; }
+        public Board.Color CurrentPlayer { get; private set; }
         public bool Finished { get; private set; }
         
         public ChessMatch()
@@ -26,6 +26,49 @@ namespace console_chess.Chess
             piece.IncrementMovementQuantity();
             Piece capturedPiece = this.Board.RemovePiece(destination);
             this.Board.InsertPiece(piece, destination);
+        }
+
+        public void MakePlay(Position origin, Position destination)
+        {
+            ExecuteMovement(origin, destination);
+            this.Turn++;
+            ChangePlayer();
+        }
+
+        private void ChangePlayer()
+        {
+            if (this.CurrentPlayer == Color.White)
+            {
+                this.CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                this.CurrentPlayer = Color.White;
+            }
+        }
+
+        public void ValidateOriginPosition(Position position)
+        {
+            if (this.Board.Piece(position) == null)
+            {
+                throw new BoardException("There is no piece in the chosen origin position!");
+            }
+            if (this.CurrentPlayer != this.Board.Piece(position).Color)
+            {
+                throw new BoardException("The chosen piece is not yours!");
+            }
+            if (!this.Board.Piece(position).ExistPossibleMovements())
+            {
+                throw new BoardException("There are no possible movements for the chosen piece!");
+            }
+        }
+
+        public void ValidateDestinationPosition(Position origin, Position destination)
+        {
+            if (!this.Board.Piece(origin).CanMoveTo(destination))
+            {
+                throw new BoardException("Invalid destination position!");
+            }
         }
 
         public void InsertPieces()

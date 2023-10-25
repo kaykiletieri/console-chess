@@ -8,24 +8,36 @@ try
 
     while(!match.Finished)
     {
-        Console.Clear();
-        View.PrintBoard(match.Board);
+        try
+        {
+            Console.Clear();
+            View.PrintBoard(match.Board);
+            Console.WriteLine();
+            Console.WriteLine($"Turn: {match.Turn}");
+            Console.WriteLine($"Waiting player: {match.CurrentPlayer}");
 
-        Console.WriteLine();
-        Console.Write("Origin: ");
-        Position origin = View.ReadChessPosition().ToPosition();
+            Console.WriteLine();
+            Console.Write("Origin: ");
+            Position origin = View.ReadChessPosition().ToPosition();
+            match.ValidateOriginPosition(origin);
 
-        bool[,] possiblePositions = match.Board.Piece(origin).PossibleMovements();
+            bool[,] possiblePositions = match.Board.Piece(origin).PossibleMovements();
 
-        Console.Clear();
-        View.PrintBoard(match.Board, possiblePositions);
+            Console.Clear();
+            View.PrintBoard(match.Board, possiblePositions);
 
-        Console.WriteLine();
-        Console.Write("Destination: ");
-        Position destination = View.ReadChessPosition().ToPosition();
-        match.Board.ValidatePosition(destination);
+            Console.WriteLine();
+            Console.Write("Destination: ");
+            Position destination = View.ReadChessPosition().ToPosition();
+            match.ValidateDestinationPosition(origin, destination);
 
-        match.ExecuteMovement(origin, destination);
+            match.MakePlay(origin, destination);
+        }
+        catch (BoardException e)
+        {
+            Console.WriteLine(e.Message);
+            Console.ReadLine();
+        }
     }
     View.PrintBoard(match.Board);
 }
