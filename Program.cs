@@ -11,10 +11,7 @@ try
         try
         {
             Console.Clear();
-            View.PrintBoard(match.Board);
-            Console.WriteLine();
-            Console.WriteLine($"Turn: {match.Turn}");
-            Console.WriteLine($"Waiting player: {match.CurrentPlayer}");
+            View.PrintMatch(match);
 
             Console.WriteLine();
             Console.Write("Origin: ");
