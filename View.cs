@@ -15,10 +15,10 @@ namespace console_chess
             if (!match.Finished)
             {
                 Console.WriteLine($"Waiting player: {match.CurrentPlayer}");
-                /*if (match.Check)
+                if (match.InCheck)
                 {
                     Console.WriteLine("CHECK!");
-                }*/
+                }
             }
             else
             {
