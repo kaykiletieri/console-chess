@@ -36,6 +36,7 @@ try
             Console.ReadLine();
         }
     }
+    Console.Clear();
     View.PrintBoard(match.Board);
 }
 catch (BoardException e)

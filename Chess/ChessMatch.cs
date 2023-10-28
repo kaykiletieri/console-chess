@@ -24,6 +24,7 @@ namespace console_chess.Chess
             this.Pieces = new HashSet<Piece>();
             this.CapturedPieces = new HashSet<Piece>();
             this.InCheck = false;
+            this.Finished = false;
             InsertPieces();
         }
 
@@ -70,8 +71,15 @@ namespace console_chess.Chess
                 this.InCheck = false;
             }
 
-            this.Turn++;
-            ChangePlayer();
+            if(TestCheckMate(this.CurrentPlayer))
+            {
+                Finished = true;
+            }
+            else
+            {
+                this.Turn++;
+                ChangePlayer();
+            }
         }
 
         private void ChangePlayer()
@@ -177,6 +185,39 @@ namespace console_chess.Chess
                 }
             }
             return false;
+        }
+
+        public bool TestCheckMate(Color color)
+        { 
+            if (!IsInCheck(color))
+            {  
+                return false; 
+            }
+
+            foreach (Piece piece in PiecesInGameByColor(color))
+            {
+                bool[,] matriz = piece.PossibleMovements();
+                for (int i = 0; i < Board.Rows; i++)
+                {
+                    for (int j = 0; j < Board.Columns; j++)
+                    {
+                        if (matriz[i, j])
+                        {
+                            Position origin = piece.Position;
+                            Position destiny = new(i, j);
+                            Piece capturedPiece = ExecuteMovement(origin, destiny);
+                            bool testCheck = IsInCheck(color);
+                            UndoMovement(origin, destiny, capturedPiece);
+
+                            if (!testCheck)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void InsertNewPiece(char column, int row, Piece piece)
