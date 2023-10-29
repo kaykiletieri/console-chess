@@ -112,7 +112,7 @@ namespace console_chess.Chess
 
         public void ValidateDestinationPosition(Position origin, Position destination)
         {
-            if (!this.Board.Piece(origin).CanMoveTo(destination))
+            if (!this.Board.Piece(origin).PossibleMovement(destination))
             {
                 throw new BoardException("Invalid destination position!");
             }
